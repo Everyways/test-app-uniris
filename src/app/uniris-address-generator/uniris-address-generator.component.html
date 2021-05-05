@@ -1,0 +1,54 @@
+<h2>{{ title }}</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <!-- // Seed -->
+  <div class="form-group">
+    <label for="seed">Key generation seed</label> <br />
+    <input
+      formControlName="seed"
+      type="password"
+      id="seed"
+      placeholder="Enter your transaction seed"
+    />
+    <div *ngIf="f.seed.touched && f.seed.invalid" class="alert alert-danger">
+      <div *ngIf="f.seed.errors?.required">seed is required.</div>
+      <div *ngIf="f.seed.errors?.minlength">seed should be 3 character.</div>
+    </div>
+  </div>
+  <!-- // Index -->
+  <div class="form-group">
+    <label for="index">index generation seed</label> <br />
+    <input
+      formControlName="index"
+      type="number"
+      id="index"
+      placeholder="Index of key to generate"
+    />
+    <div *ngIf="f.index.touched && f.index.invalid" class="alert alert-danger">
+      <div *ngIf="f.index.errors?.required">index is required.</div>
+      <div *ngIf="f.index.errors?.minlength">index should be 3 character.</div>
+    </div>
+  </div>
+<!-- // Curves -->
+  <div class="form-group">
+    <label for="curve">Elliptic curve</label>
+    <select formControlName="curve">
+        <option [ngValue]="null" disabled>Select elliptic curve</option>
+        <option *ngFor="let curve of Curves" [ngValue]="curve.value">{{ curve.name }}</option>
+    </select>
+  </div>
+<!-- // Hash -->
+  <div class="form-group">
+    <label for="hash">hash algorithm</label>
+    <select formControlName="hash">
+        <option [ngValue]="null" disabled>Select Hash algorithm</option>
+        <option *ngFor="let hash of HashsAlgo" [ngValue]="hash.value">{{ hash.name }}</option>
+    </select>
+  </div>
+
+
+  <button class="btn btn-primary" type="submit">Submit</button>
+</form>
+
+<h3> {{ userPublicKey }} </h3>
+<h3> {{ userPrivateKey }} </h3>
